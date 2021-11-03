@@ -21,27 +21,6 @@ class navigationDrawer extends StatelessWidget {
         child:
          _lista()
         
-          // Important: Remove any padding from the ListView.
-          
-          // children: [
-          //   const DrawerHeader(
-          //     decoration: BoxDecoration(
-              
-          //       color: Colors.blue,
-          //     ),
-          //     child: Text('Drawer Header'),
-          //   ),
-         
-          //   ListTile(
-
-          //     onTap: () {
-          //       // Update the state of the app
-          //       // ...
-          //       // Then close the drawer
-          //       Navigator.pop(context);
-          //     },
-          //   ),
-          // ],
         );
 
     
