@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
    Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp( debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -24,13 +24,15 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: _crearRutas(context),
       onGenerateRoute: (settings) {
-        return MaterialPageRoute(builder: (context) => AlertPage());
+        return MaterialPageRoute(builder: (context) => MyHomePage());
       },
     );
   }
 }
+
 Map<String, WidgetBuilder> _crearRutas(context) {
     return <String, WidgetBuilder>{
+    
       '/': (context) => MyHomePage(),
       AlertPage.pageName: (context) => AlertPage(),
       'card': (context) => CardPage(),

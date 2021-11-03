@@ -2,9 +2,14 @@
     "nombreApp":"Componentes chulos",
     "rutas":[
         {
+            "ruta":"/",
+            "icon":"home_page",
+            "texto":"Home Page"
+        },
+        {
             "ruta":"alert",
             "icon":"add_alert",
-            "texto":"Alerta"
+            "texto":"Alertas"
         },
         {
             "ruta":"avatar",
@@ -16,6 +21,7 @@
             "icon":"folder_open",
             "texto":"Cards o Tarjetas"
         }
+       
     ]
 
 }
