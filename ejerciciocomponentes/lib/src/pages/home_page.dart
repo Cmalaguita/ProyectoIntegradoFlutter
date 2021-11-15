@@ -15,14 +15,14 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       
       appBar: AppBar(
-        title: const Text('Página principal'),
+        title: const Text('Login'),
       ),
       body:Center(
 child: Column(
 
 mainAxisAlignment: MainAxisAlignment.center,
 children: <Widget>[
-Text('Página principal',style: TextStyle(color: Colors.redAccent,fontFamily: 'Leelawadee',fontWeight:FontWeight.bold,fontSize:55),)
+Text('Login',style: TextStyle(color: Colors.redAccent,fontFamily: 'Leelawadee',fontWeight:FontWeight.bold,fontSize:55),)
 
 
 
@@ -35,8 +35,7 @@ Text('Página principal',style: TextStyle(color: Colors.redAccent,fontFamily: 'L
       floatingActionButton: const FloatingActionButton(
         onPressed: null,
         child: Icon(Icons.add),
-      ),
-      
+      ),      
     );
   }
 
