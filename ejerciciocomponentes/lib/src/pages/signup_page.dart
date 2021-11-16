@@ -59,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
          const SizedBox(
-          height: 10.0,
+          height: 20.0,
         ),
         //container 2
         Container(
@@ -139,20 +139,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildforgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        style: TextButton.styleFrom(padding: EdgeInsets.only(right: 0.0)),
-        child: Text(
-          'Forgot Password?',
-          style: TextStyle(color: Colors.blue.shade900),
-        ),
-      ),
-    );
-  }
-
   Widget _cancelSignUp() {
     return Container(
       alignment: Alignment.center,
@@ -160,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
         onPressed: () {
           Navigator.pop(context);
         },
-        style: TextButton.styleFrom(padding: EdgeInsets.only(right: 0.0)),
+        
         child: Text(
           "Get back to the Login!",
           style: TextStyle(color: Colors.blue.shade900),
@@ -176,6 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
       elevation: 5.0,
       textStyle: const TextStyle(fontSize: 20, color: Colors.white),
     );
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
@@ -190,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
               fontFamily: 'Opensans'),
         ),
         style: _eBtnStyle,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () => print('Sign Up Button Pressed'),
       ),
     );
   }
