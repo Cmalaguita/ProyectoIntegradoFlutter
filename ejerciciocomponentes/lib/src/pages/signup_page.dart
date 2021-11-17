@@ -187,6 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(
           height: 20.0,
         ),
+        // FORMATO DE FECHA ANTERIOR
         // Container(
         //   alignment: Alignment.centerLeft,
         //   decoration: BoxDecoration(
