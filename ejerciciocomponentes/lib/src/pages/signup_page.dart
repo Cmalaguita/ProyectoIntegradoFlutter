@@ -17,12 +17,24 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  String dropdownProvinceValue = 'Málaga';
+  String dropdownProFamilyValue = 'Informática y Comunicaciones';
+  String dropdownVTTypeValue = 'Superior';
+  String dropdownVTInProgressValue = 'Superior';
+  DateTime? _birthDate = null;
+  final ButtonStyle _dateBtnStyle = ElevatedButton.styleFrom(
+    padding: const EdgeInsets.all(15.0),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+    elevation: 5.0,
+    textStyle: const TextStyle(fontSize: 20, color: Colors.white),
+  );
+
   Widget _buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
-          'Password',
+          'Contraseña',
           style: const TextStyle(fontFamily: 'Opensans', color: Colors.white),
         ),
         const SizedBox(
@@ -31,16 +43,16 @@ class _SignUpPageState extends State<SignUpPage> {
         //container 1
         Container(
           alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade400.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(0,7),
-              
-
-            )
-          ]),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 7),
+                )
+              ]),
           height: 60.0,
           child: const TextField(
             obscureText: true,
@@ -53,33 +65,32 @@ class _SignUpPageState extends State<SignUpPage> {
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Password',
+              hintText: 'Contraseña',
               hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
             ),
           ),
         ),
-         const SizedBox(
+        const SizedBox(
           height: 20.0,
         ),
         //container 2
         Container(
           alignment: Alignment.centerLeft,
-          decoration: BoxDecoration( borderRadius: BorderRadius.circular(30.0), boxShadow: [
-            BoxShadow(
-              
-              color: Colors.grey.shade400.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(0,7),
-              
-
-            )
-          ]),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 7),
+                )
+              ]),
           height: 60.0,
           child: const TextField(
             obscureText: true,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle( color: Colors.white, fontFamily: 'Opensans'),
+            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
@@ -87,9 +98,349 @@ class _SignUpPageState extends State<SignUpPage> {
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Repeat Password',
-              hintStyle: TextStyle( color: Colors.white, fontFamily: 'Opensans'),
-              
+              hintText: 'Repetir contraseña',
+              hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPersonalData() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(
+          height: 15.0,
+        ),
+        const Text(
+          'Información de perfil ',
+          style: const TextStyle(fontFamily: 'Opensans', color: Colors.white,fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        //container 1
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 7),
+                )
+              ]),
+          height: 60.0,
+          child: const TextField(
+            obscureText: false,
+            keyboardType: TextInputType.name,
+            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+              ),
+              hintText: 'Nombre',
+              hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        //container 2
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 7),
+                )
+              ]),
+          height: 60.0,
+          child: const TextField(
+            obscureText: false,
+            keyboardType: TextInputType.text,
+            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+              ),
+              hintText: 'Apellidos',
+              hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        // Container(
+        //   alignment: Alignment.centerLeft,
+        //   decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(30.0),
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.grey.shade400.withOpacity(0.2),
+        //           spreadRadius: 1,
+        //           blurRadius: 2,
+        //           offset: Offset(0, 7),
+        //         )
+        //       ]),
+        //   height: 60.0,
+        //   child: const TextField(
+        //     obscureText: false,
+        //     keyboardType: TextInputType.datetime,
+        //     style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+        //     decoration: InputDecoration(
+        //       border: InputBorder.none,
+        //       contentPadding: EdgeInsets.only(top: 14.0),
+        //       prefixIcon: Icon(
+        //         Icons.date_range_rounded,
+        //         color: Colors.white,
+        //       ),
+        //       hintText: 'Fecha de nacimiento',
+        //       hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+        //     ),
+        //   ),
+        // ),
+         Container(
+          alignment: Alignment.center,
+          child: const Text(
+            'Fecha de nacimiento',
+            style: const TextStyle(fontFamily: 'Opensans', color: Colors.white),
+          ),
+        ),
+        
+        const SizedBox(
+          height: 10.0,
+        ),
+
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 7),
+                )
+              ]),
+          width: double.infinity,
+          child: ElevatedButton(
+            child: Text(
+              _birthDate == null
+                  ? 'Fecha no seleccionada'
+                  : _birthDate.toString(),
+              style: const TextStyle(
+                  color: Colors.white,
+                  letterSpacing: 1.5,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Opensans'),
+            ),
+            style: _dateBtnStyle,
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2200))
+                  .then((date) {
+                setState(() {
+                  _birthDate = date;
+                });
+              });
+            },
+          ),
+        ),
+
+        const SizedBox(
+          height: 20.0,
+        ),
+
+        Container(
+          alignment: Alignment.center,
+          child: const Text(
+            'Provincia',
+            style: const TextStyle(fontFamily: 'Opensans', color: Colors.white),
+          ),
+        ),
+
+        Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.blue.shade800,
+          ),
+          child: DropdownButtonFormField<String>(
+            value: dropdownProvinceValue,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.white),
+            onChanged: (String? newValue) {
+              setState(() {
+                dropdownProvinceValue = newValue!;
+              });
+            },
+            items: <String>['Málaga', 'Córdoba', 'Cádiz', 'Granada']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+
+        const SizedBox(
+          height: 20.0,
+        ),
+
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 7),
+                )
+              ]),
+          height: 60.0,
+          child: const TextField(
+            obscureText: true,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Localidad',
+              hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+
+        Container(
+          alignment: Alignment.center,
+          child: const Text(
+            'Familia profesional',
+            style: const TextStyle(fontFamily: 'Opensans', color: Colors.white),
+          ),
+        ),
+        Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.blue.shade800,
+          ),
+          child: DropdownButtonFormField<String>(
+            value: dropdownProFamilyValue,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.white),
+            onChanged: (String? newValue) {
+              setState(() {
+                dropdownProFamilyValue = newValue!;
+              });
+            },
+            items: <String>[
+              'Informática y Comunicaciones',
+              'Artes Gráficas',
+              'Agraria',
+              'Energía y agua'
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+
+        Container(
+          alignment: Alignment.center,
+          child: const Text(
+            'Tipo de grado',
+            style: const TextStyle(fontFamily: 'Opensans', color: Colors.white),
+          ),
+        ),
+        Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.blue.shade800,
+          ),
+          child: DropdownButtonFormField<String>(
+            value: dropdownVTTypeValue,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.white),
+            onChanged: (String? newValue) {
+              setState(() {
+                dropdownVTTypeValue = newValue!;
+              });
+            },
+            items: <String>['Superior', 'FP Básica', 'Medio']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+         const SizedBox(
+          height: 20.0,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 7),
+                )
+              ]),
+          height: 60.0,
+          child: const TextField(
+            obscureText: false,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.score_rounded,
+                color: Colors.white,
+              ),
+              hintText: 'Calificación media',
+              hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
             ),
           ),
         ),
@@ -108,17 +459,16 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          decoration: BoxDecoration( borderRadius: BorderRadius.circular(30.0), boxShadow: [
-            BoxShadow(
-              
-              color: Colors.grey.shade400.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(0,7),
-              
-
-            )
-          ]),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 7),
+                )
+              ]),
           height: 60.0,
           child: const TextField(
             keyboardType: TextInputType.emailAddress,
@@ -130,7 +480,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Icons.email,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'Email',
               hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
             ),
           ),
@@ -146,16 +496,15 @@ class _SignUpPageState extends State<SignUpPage> {
         onPressed: () {
           Navigator.pop(context);
         },
-        
         child: Text(
-          "Get back to the Login!",
+          "¡Llevame de vuelta al login!",
           style: TextStyle(color: Colors.blue.shade900),
         ),
       ),
     );
   }
 
-  Widget _buildLoginBtn() {
+  Widget _buildSignUpBtn() {
     final ButtonStyle _eBtnStyle = ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(15.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
@@ -168,7 +517,7 @@ class _SignUpPageState extends State<SignUpPage> {
       width: double.infinity,
       child: ElevatedButton(
         child: const Text(
-          'Create Account',
+          'Registrarse',
           style: TextStyle(
               color: Colors.white,
               letterSpacing: 1.5,
@@ -188,7 +537,7 @@ class _SignUpPageState extends State<SignUpPage> {
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           Focus.of(context).unfocus();
         },
         child: Stack(
@@ -226,7 +575,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     const Text(
-                      'Sign up',
+                      'Registro',
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Opensans',
@@ -240,7 +589,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     _buildEmail(),
                     const SizedBox(height: 30.0),
                     _buildPassword(),
-                    _buildLoginBtn(),
+                    _buildPersonalData(),
+                    _buildSignUpBtn(),
                     _cancelSignUp(),
                   ],
                 ),
