@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
               fontFamily: 'Opensans'),
         ),
         style: _eBtnStyle,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed:  () => Navigator.pushNamed(context, '/'),
       ),
     );
   }

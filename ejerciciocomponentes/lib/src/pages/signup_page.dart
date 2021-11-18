@@ -245,7 +245,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Text(
               _birthDate == null
                   ? 'Fecha no seleccionada'
-                  : _birthDate.toString(),
+                  : _birthDate.toString().substring(0,10),
               style: const TextStyle(
                   color: Colors.white,
                   letterSpacing: 1.5,
