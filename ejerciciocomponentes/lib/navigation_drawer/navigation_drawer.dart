@@ -13,38 +13,42 @@ class navigationDrawer extends StatelessWidget {
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
-        child:_lista(),
+        // child:_lista(),
         
         
-    //      ListView(
-    //   scrollDirection: Axis.vertical,
-    //   shrinkWrap: true,
-    //   children: [
-    //     UserAccountsDrawerHeader(
-    //       accountName: Text('Bahamadia'),
-    //       accountEmail: Text('Bahamadia.og@gmail.com'),
-    //       currentAccountPicture: CircleAvatar(
-    //         child: ClipOval(
-    //           child: Image.network(
-    //             'https://learn.zoner.com/wp-content/uploads/2015/06/028mm.jpg?fidl=2019-06-mag-en',
-    //             fit: BoxFit.cover,
-    //             width: 70,
-    //             height: 80,
-    //           ),
-    //         ),
-    //       ),
-    //       decoration: BoxDecoration(
-    //           color: Colors.blue.shade500,
-    //           image: const DecorationImage(
-    //             fit: BoxFit.fill,
-    //             image: NetworkImage(
-    //                 'https://static.vecteezy.com/system/resources/previews/001/217/366/non_2x/polygonal-blue-background-vector.jpg'),
-    //           )),
+        child: ListView(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      children: [
+        UserAccountsDrawerHeader(
+          accountName: Text('Bahamadia'),
+          accountEmail: Text('Bahamadia.og@gmail.com'),
+          currentAccountPicture: CircleAvatar(
+            child: ClipOval(
+              child: Image.network(
+                'https://learn.zoner.com/wp-content/uploads/2015/06/028mm.jpg?fidl=2019-06-mag-en',
+                fit: BoxFit.cover,
+                width: 70,
+                height: 80,
+              ),
+            ),
+          ),
+          decoration: BoxDecoration(
+              color: Colors.blue.shade500,
+              image: const DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                    'https://static.vecteezy.com/system/resources/previews/001/217/366/non_2x/polygonal-blue-background-vector.jpg'),
+              )),
             
-    //     ),
+        ),
+Container(
 
-    //   ],
-    // )
+child: const Text('Polla'),
+
+)
+      ],
+    )
     
     );
   }
