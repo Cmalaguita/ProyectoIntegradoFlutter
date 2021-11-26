@@ -187,36 +187,6 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(
           height: 20.0,
         ),
-        // FORMATO DE FECHA ANTERIOR
-        // Container(
-        //   alignment: Alignment.centerLeft,
-        //   decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(30.0),
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.grey.shade400.withOpacity(0.2),
-        //           spreadRadius: 1,
-        //           blurRadius: 2,
-        //           offset: Offset(0, 7),
-        //         )
-        //       ]),
-        //   height: 60.0,
-        //   child: const TextField(
-        //     obscureText: false,
-        //     keyboardType: TextInputType.datetime,
-        //     style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
-        //     decoration: InputDecoration(
-        //       border: InputBorder.none,
-        //       contentPadding: EdgeInsets.only(top: 14.0),
-        //       prefixIcon: Icon(
-        //         Icons.date_range_rounded,
-        //         color: Colors.white,
-        //       ),
-        //       hintText: 'Fecha de nacimiento',
-        //       hintStyle: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
-        //     ),
-        //   ),
-        // ),
          Container(
           alignment: Alignment.center,
           child: const Text(
@@ -527,7 +497,7 @@ class _SignUpPageState extends State<SignUpPage> {
               fontFamily: 'Opensans'),
         ),
         style: _eBtnStyle,
-        onPressed: () => print('Sign Up Button Pressed'),
+        onPressed: () => Navigator.pushNamed(context, 'login'),
       ),
     );
   }
