@@ -34,11 +34,7 @@ Text('Inicio',style: TextStyle(color: Colors.redAccent,fontFamily: 'Leelawadee',
 ),
 
       ) ,
-     drawer: navigationDrawer(),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
-      ),      
+     drawer: navigationDrawer(),   
     );
   }
 
