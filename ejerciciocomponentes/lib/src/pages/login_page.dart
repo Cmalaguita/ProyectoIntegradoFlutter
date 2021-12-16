@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:ejerciciocomponentes/navigation_drawer/navigation_drawer.dart';
 import 'package:ejerciciocomponentes/src/pages/card_page.dart';
 import 'package:ejerciciocomponentes/src/pages/signup_page.dart';
 import 'package:ejerciciocomponentes/src/utils/icon_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 import '../menu_provider.dart';
@@ -16,6 +20,34 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _rememberMe = false;
+  bool _isLoading = false;
+  
+signIn(String email, pass) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    Map data = {
+      'email': email,
+      'password': pass
+    };
+    var jsonResponse = null;
+    var response = await http.post("YOUR_BASE_URL", body: data);
+    if(response.statusCode == 200) {
+      jsonResponse = json.decode(response.body);
+      if(jsonResponse != null) {
+        setState(() {
+          _isLoading = false;
+        });
+        sharedPreferences.setString("token", jsonResponse['token']);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MainPage()), (Route<dynamic> route) => false);
+      }
+    }
+    else {
+      setState(() {
+        _isLoading = false;
+      });
+      print(response.body);
+    }
+  }
+
   Widget _buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
