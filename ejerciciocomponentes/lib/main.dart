@@ -1,13 +1,16 @@
 import 'package:ejerciciocomponentes/src/pages/login_page.dart';
 import 'package:ejerciciocomponentes/src/pages/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'src/pages/alert_page.dart';
 import 'src/pages/avatar_page.dart';
-import 'src/pages/card_page.dart';
+import 'src/pages/offers_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/pages/login_page.dart';
-void main() {
+Future <void> main() async {
+  await dotenv.load(fileName: 'environment.env');
+  dotenv.isEveryDefined(['ID_ALUMNO']);
   runApp(const MyApp());
 }
 
@@ -38,7 +41,7 @@ Map<String, WidgetBuilder> _crearRutas(context) {
       'login':(context)=>LoginPage(),
       '/': (context) => MyHomePage(),
       AlertPage.pageName: (context) => AlertPage(),
-      'card': (context) => CardPage(),
+      'card': (context) => OffersPage(),
       'avatar': (context) => AvatarPage()
     };
   }

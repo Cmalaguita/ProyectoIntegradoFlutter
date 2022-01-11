@@ -4,7 +4,7 @@
         {
             "ruta":"/",
             "icon":"home_page",
-            "texto":"Home Page"
+            "texto":"Mi Perfil"
         },
         {
             "ruta":"alert",
@@ -19,7 +19,7 @@
         {
             "ruta":"card",
             "icon":"folder_open",
-            "texto":"Cards o Tarjetas"
+            "texto":"Posiciones"
         }
        
     ]

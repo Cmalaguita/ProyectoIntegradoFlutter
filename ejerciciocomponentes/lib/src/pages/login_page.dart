@@ -1,10 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:ejerciciocomponentes/navigation_drawer/navigation_drawer.dart';
-import 'package:ejerciciocomponentes/src/pages/card_page.dart';
+import 'package:ejerciciocomponentes/src/pages/offers_page.dart';
 import 'package:ejerciciocomponentes/src/pages/signup_page.dart';
 import 'package:ejerciciocomponentes/src/utils/icon_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import '../../main.dart';
 import '../menu_provider.dart';
 import 'alert_page.dart';
@@ -13,9 +17,45 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
-  bool _rememberMe = false;
+bool _rememberMe = false;
+
+var emailController = TextEditingController();
+var passController = TextEditingController();
+
+Future<void> login() async {
+  if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {   
+    var response = await http.post(Uri.parse('http://10.0.2.2:5000/api/Alumno/Login_Alumno'),
+    headers:{
+       HttpHeaders.contentTypeHeader: 'application/json',
+                HttpHeaders.acceptHeader: 'application/json',
+    } ,
+        body: jsonEncode (<String,String>{
+          'email': emailController.text,
+          'password': passController.text
+        }));
+
+
+    if (response.statusCode == 200) {
+      dotenv.env['ID_ALUMNO']=response.body.toString();
+           
+            
+    
+      Navigator.pushNamed(context, '/');
+    }
+    else {
+      
+      ScaffoldMessenger.of (context)
+          .showSnackBar(SnackBar(content: Text("Credenciales inválidas.")));
+    }
+   } else {
+    ScaffoldMessenger.of (context)
+        .showSnackBar (SnackBar(content: Text("No se permiten campos en blanco.")));
+
+   }
+   }
+   
+
   Widget _buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,11 +80,12 @@ class _LoginPageState extends State<LoginPage> {
                 )
               ]),
           height: 60.0,
-          child: const TextField(
+          child: TextField(
+            controller: passController,
             obscureText: true,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
-            decoration: InputDecoration(
+            style: const TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -82,10 +123,11 @@ class _LoginPageState extends State<LoginPage> {
                 )
               ]),
           height: 60.0,
-          child: const TextField(
+          child:  TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.white, fontFamily: 'Opensans'),
-            decoration: InputDecoration(
+            style: const TextStyle(color: Colors.white, fontFamily: 'Opensans'),
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -176,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
               fontFamily: 'Opensans'),
         ),
         style: _eBtnStyle,
-        onPressed:  () => Navigator.pushNamed(context, '/'),
+        onPressed:  () =>login()
       ),
     );
   }
