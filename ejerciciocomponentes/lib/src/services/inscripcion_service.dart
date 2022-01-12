@@ -23,10 +23,15 @@ class InscripcionService {
 
 comprobarInscripcion(String idA, String idP) async {
 final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP='+idP+'&idA='+idA.toString()));
+    
+      return response.body.toString();
+  }
+  borrarInscripcion(String idInscripcion) async {
+final response = await http.delete(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Borrar_Inscripcion?id='+idInscripcion));
     if (response.statusCode == 200) {
       return (response.body);
     } else {
-      throw Exception('Failed to load Data');
+      throw Exception('Fallo al eliminar la inscripcion');
     }
   }
 }

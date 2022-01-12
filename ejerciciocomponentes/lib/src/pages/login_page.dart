@@ -1,17 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ejerciciocomponentes/navigation_drawer/navigation_drawer.dart';
-import 'package:ejerciciocomponentes/src/pages/offers_page.dart';
-import 'package:ejerciciocomponentes/src/pages/signup_page.dart';
-import 'package:ejerciciocomponentes/src/utils/icon_utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import '../../main.dart';
-import '../menu_provider.dart';
-import 'alert_page.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override

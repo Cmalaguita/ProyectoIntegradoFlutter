@@ -7,8 +7,8 @@ import 'dart:convert';
 import 'package:ejerciciocomponentes/src/models/alumno.dart';
 import 'package:ejerciciocomponentes/src/models/posicion.dart';
 
-List<Inscripcion> inscripcionFromJson(String str) => List<Inscripcion>.from(json.decode(str).map((x) => Inscripcion.fromJson(x)));
-
+List<Inscripcion> inscripcionesFromJson(String str) => List<Inscripcion>.from(json.decode(str).map((x) => Inscripcion.fromJson(x)));
+Inscripcion inscripcionFromJson(String str) => Inscripcion.fromJson(json.decode(str));
 String inscripcionToJson(List<Inscripcion> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Inscripcion {
