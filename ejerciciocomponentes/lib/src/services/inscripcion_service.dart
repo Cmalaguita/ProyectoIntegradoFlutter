@@ -23,8 +23,14 @@ class InscripcionService {
 
 comprobarInscripcion(String idA, String idP) async {
 final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP='+idP+'&idA='+idA.toString()));
-    
-      return response.body.toString();
+   
+      if (response.statusCode==200) {
+        
+      return inscripcionFromJson(response.body);
+      }else{
+return -1;
+      }
+   
   }
   borrarInscripcion(String idInscripcion) async {
 final response = await http.delete(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Borrar_Inscripcion?id='+idInscripcion));

@@ -244,19 +244,28 @@ class _OffersPageState extends State<OffersPage> {
                                     builder: (BuildContext context,
                                         AsyncSnapshot snapshot) {
                                       if (snapshot.hasData) {
-                                        if (snapshot.data != "-1") {
-                                          return OutlinedButton(
-                                            onPressed: () {
-                                              InscripcionService()
-                                                  .borrarInscripcion(
-                                                      snapshot.data.toString())
-                                                  .then((_) {
-                                                setState(() {
+                                        if (snapshot.data != -1) {
+                                          Inscripcion i = snapshot.data;
+                                          return Row(
+                                            children: [
+                                              OutlinedButton(
+                                                onPressed: () {
+                                                  InscripcionService()
+                                                      .borrarInscripcion(
+                                                          i.id.toString())
+                                                      .then((_) {
+                                                    setState(() {
 
-                                                });
-                                              });
-                                            },
-                                            child: const Text('Borrar Inscripción'),
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text('Borrar Inscripción'),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(left: 10),
+                                                child: Text("Estado: "+ i.estadoInscripcion,style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),),
+                                              )
+                                            ],
                                           );
                                         } else {
                                           return OutlinedButton(

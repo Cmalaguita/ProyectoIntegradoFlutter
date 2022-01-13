@@ -17,12 +17,14 @@ class Alumno {
         this.nombre,
         this.apellidos,
         this.idCiclo,
-        this.ciclo,
         this.fechaDeNacimiento,
         this.localidad,
         this.idProvincia,
+        this.notaMedia,{
+
         this.provincia,
-        this.notaMedia,
+        this.ciclo,
+        }
     );
 
     int id;
@@ -31,11 +33,11 @@ class Alumno {
     String nombre;
     String apellidos;
     int idCiclo;
-    Ciclo ciclo;
+    Ciclo? ciclo;
     DateTime fechaDeNacimiento;
     String localidad;
     int idProvincia;
-    Provincia provincia;
+    Provincia? provincia;
     int notaMedia;
 
     factory Alumno.fromJson(Map<String, dynamic> json) => Alumno(
@@ -45,12 +47,12 @@ class Alumno {
         json["nombre"],
         json["apellidos"],
         json["idCiclo"],
-        Ciclo.fromJson(json["ciclo"]),
         DateTime.parse(json["fechaDeNacimiento"]),
         json["localidad"],
         json["idProvincia"],
-        Provincia.fromJson(json["provincia"]),
         json["notaMedia"],
+        ciclo: Ciclo.fromJson(json["ciclo"]),
+        provincia:Provincia.fromJson(json["provincia"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -60,11 +62,11 @@ class Alumno {
         "nombre": nombre,
         "apellidos": apellidos,
         "idCiclo": idCiclo,
-        "ciclo": ciclo.toJson(),
+        "ciclo": ciclo!.toJson(),
         "fechaDeNacimiento": fechaDeNacimiento.toIso8601String(),
         "localidad": localidad,
         "idProvincia": idProvincia,
-        "provincia": provincia.toJson(),
+        "provincia": provincia!.toJson(),
         "notaMedia": notaMedia,
     };
 }

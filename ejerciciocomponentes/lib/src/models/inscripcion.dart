@@ -22,13 +22,14 @@ class Inscripcion {
       
         this.estadoInscripcion,
         this.fechaInscripcion,{
+this.id,
 this.alumno,
 this.empresa,
 this.posicion,
         }
     );
 
-
+    int? id;
     int alumnoId;
     Alumno? alumno;
     int empresaId;
@@ -39,21 +40,21 @@ this.posicion,
     DateTime fechaInscripcion;
     
     factory Inscripcion.fromJson(Map<String, dynamic> json) => Inscripcion(
-  
+        
         json["alumnoId"],
         json["empresaId"],
         
         json["posicionId"],
         json["estadoInscripcion"],
         DateTime.parse(json["fechaInscripcion"]),
-
+        id: (json["id"]),
        posicion: Posicion.fromJson(json["posicion"]),
        empresa: Empresa.fromJson(json["empresa"]),
        alumno: Alumno.fromJson(json["alumno"]),
     );
 
     Map<String, dynamic> toJson() => {
-   
+        "id":id,
         "alumnoId": alumnoId,
         "alumno": alumno!.toJson(),
         "empresaId": empresaId,
