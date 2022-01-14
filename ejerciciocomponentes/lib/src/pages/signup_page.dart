@@ -55,105 +55,104 @@ class _SignUpPageState extends State<SignUpPage> {
   );
 
   provincias() {
-    return DropdownButtonHideUnderline(
-      child: FutureBuilder(
-          future: ProvinciaService().loadAllProvincias(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              List<DropdownMenuItem<Provincia>> listaProvincias = [];
-              if (snapshot.data is List<Provincia>) {
-                for (var p in snapshot.data) {
-                  listaProvincias.add(DropdownMenuItem(
-                    child: Text(p.nombre),
-                    value: p,
-                  ));
-                }
-                return DropdownButton<Provincia>(
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.white),
-                  onChanged: (Provincia? newValue) {
-                    if (newValue != null) {
-                      _selectedProvincia=newValue.nombre;
-                      dropdownProvinceValue = newValue.id;
-                    }
-                  },
-                  hint: Text(_selectedProvincia,style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Opensans',
-                      )),
-                  items: listaProvincias,
-                );
-              } else {
-                return const Text(
-                    "Se ha producido un error al cargar las provincias");
+    return FutureBuilder(
+        future: ProvinciaService().loadAllProvincias(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<DropdownMenuItem<Provincia>> listaProvincias = [];
+            if (snapshot.data is List<Provincia>) {
+              for (var p in snapshot.data) {
+                listaProvincias.add(DropdownMenuItem(
+                  child: Text(p.nombre),
+                  value: p,
+                ));
               }
-            } else if (snapshot.hasError) {
+              return DropdownButton<Provincia>(
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(color: Colors.white),
+                onChanged: (Provincia? newValue) {
+                  if (newValue != null) {
+                    dropdownProvinceValue = newValue.id;
+                    setState(() {
+                    _selectedProvincia=newValue.nombre;
+                      
+                    });
+                  }
+                },
+                hint: Text(_selectedProvincia,style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Opensans',
+                    )),
+                items: listaProvincias,
+              );
+            } else {
               return const Text(
                   "Se ha producido un error al cargar las provincias");
-            } else {
-              return const CircularProgressIndicator();
             }
-          }),
-    );
+          } else if (snapshot.hasError) {
+            return const Text(
+                "Se ha producido un error al cargar las provincias");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
   }
 
   familias() {
-    return DropdownButtonHideUnderline(
-      child: FutureBuilder(
-          future: FamiliaService().cargarTodasLasFamilias(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              List<DropdownMenuItem<Familia>> listaFamilias = [];
-              if (snapshot.data is List<Familia>) {
-                for (var f in snapshot.data) {
-                  listaFamilias.add(DropdownMenuItem(
-                    child: Text(f.nombre),
-                    value: f,
-                  ));
-                }
-                return DropdownButton<Familia>(
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.white),
-                  onChanged: (newValue) {
-                    if (newValue != null) {
-                      dropdownFamilyId = newValue.id;
-                      _selectedFamilia = newValue.nombre;
-                      setState(() {
-                        if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
-                          futureCiclos = CicloService()
-                              .cargarCiclosPorFamiliaYTipo(
-                                  dropdownFamilyId.toString(),
-                                  dropdownTypeId.toString());
-                        } else if (dropdownFamilyId > 0) {
-                          futureCiclos = CicloService().cargarCiclosPorFamilia(
-                              dropdownFamilyId.toString());
-                        }
-                      });
-                    }
-                  },
-                  hint: Text(_selectedFamilia,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Opensans',
-                      )),
-                  items: listaFamilias,
-                );
-              } else {
-                return const Text(
-                    "Se ha producido un error al cargar las familias");
+    return FutureBuilder(
+        future: FamiliaService().cargarTodasLasFamilias(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<DropdownMenuItem<Familia>> listaFamilias = [];
+            if (snapshot.data is List<Familia>) {
+              for (var f in snapshot.data) {
+                listaFamilias.add(DropdownMenuItem(
+                  child: Text(f.nombre),
+                  value: f,
+                ));
               }
-            } else if (snapshot.hasError) {
-              return const Text(
-                  "Se ha producido un error al cargar las familias, no se han devuelto datos");
+              return DropdownButton<Familia>(
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(color: Colors.white),
+                onChanged: (newValue) {
+                  if (newValue != null) {
+                    dropdownFamilyId = newValue.id;
+                    setState(() {
+                    _selectedFamilia = newValue.nombre;
+                      if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
+                        futureCiclos = CicloService()
+                            .cargarCiclosPorFamiliaYTipo(
+                                dropdownFamilyId.toString(),
+                                dropdownTypeId.toString());
+                      } else if (dropdownFamilyId > 0) {
+                        futureCiclos = CicloService().cargarCiclosPorFamilia(
+                            dropdownFamilyId.toString());
+                      }
+                    });
+                  }
+                },
+                hint: Text(_selectedFamilia,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Opensans',
+                    )),
+                items: listaFamilias,
+              );
             } else {
-              return const CircularProgressIndicator();
+              return const Text(
+                  "Se ha producido un error al cargar las familias");
             }
-          }),
-    );
+          } else if (snapshot.hasError) {
+            return const Text(
+                "Se ha producido un error al cargar las familias, no se han devuelto datos");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
   }
 
   tipoCiclos() {
@@ -176,9 +175,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: const TextStyle(color: Colors.white),
                 onChanged: (TipoCiclo? newValue) {
                   if (newValue != null) {
-                    _selectedTipoCiclo = newValue.nombre;
                     dropdownTypeId = newValue.id;
                     setState(() {
+                    _selectedTipoCiclo = newValue.nombre;
                       if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
                         futureCiclos = CicloService()
                             .cargarCiclosPorFamiliaYTipo(
@@ -234,8 +233,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: const TextStyle(color: Colors.white),
                   onChanged: (Ciclo? newValue) {
                     if (newValue != null) {
-                      _selectedCiclo = newValue.nombre;
                       dropdownVTInProgressId = newValue.id;
+                      setState(() {
+                      _selectedCiclo = newValue.nombre;
+                        
+                      });
                     }
                   },
                   hint: Text(_selectedCiclo,
@@ -427,6 +429,12 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
           height: 60.0,
           child: TextFormField(
+            validator: (value){
+              if ( value==null || value.isEmpty ) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
             controller: nameController,
             obscureText: false,
             keyboardType: TextInputType.name,
@@ -460,7 +468,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 )
               ]),
           height: 60.0,
-          child: TextFormField(
+          child: TextFormField( validator: (value){
+              if ( value==null || value.isEmpty ) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
             controller: lastnameController,
             obscureText: false,
             keyboardType: TextInputType.text,
@@ -569,6 +582,12 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
           height: 60.0,
           child: TextFormField(
+             validator: (value){
+              if ( value==null || value.isEmpty ) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
             controller: townController,
             obscureText: false,
             keyboardType: TextInputType.emailAddress,
@@ -654,6 +673,12 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
           height: 60.0,
           child: TextFormField(
+             validator: (value){
+              if ( value==null || value.isEmpty ) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
             controller: qualificationController,
             obscureText: false,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),

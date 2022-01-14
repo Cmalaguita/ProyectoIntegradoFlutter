@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,7 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 class _LoginPageState extends State<LoginPage> {
 bool _rememberMe = false;
-
+final _formValidatorKey = GlobalKey<FormState>();
 var emailController = TextEditingController();
 var passController = TextEditingController();
 
@@ -75,7 +76,13 @@ Future<void> login() async {
                 )
               ]),
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
+             validator: (value){
+              if ( value==null || value.isEmpty ) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
             controller: passController,
             obscureText: true,
             keyboardType: TextInputType.emailAddress,
@@ -118,7 +125,16 @@ Future<void> login() async {
                 )
               ]),
           height: 60.0,
-          child:  TextField(
+          child:  TextFormField(
+             validator: (value){
+              if ( value==null || value.isEmpty ) {
+                return "Campo obligatorio";
+              }
+               if (!EmailValidator.validate(value)) {
+                 return "Formato de email incorrecto";
+               }
+              return null;
+            },
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: const TextStyle(color: Colors.white, fontFamily: 'Opensans'),
@@ -213,7 +229,13 @@ Future<void> login() async {
               fontFamily: 'Opensans'),
         ),
         style: _eBtnStyle,
-        onPressed:  () =>login()
+        onPressed:  () {
+          
+          if (_formValidatorKey.currentState!.validate()) {        
+          login();
+          }
+          
+          }
       ),
     );
   }
@@ -272,51 +294,54 @@ Future<void> login() async {
                   horizontal: 40.0,
                   vertical: 40.0,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'Sign in',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Opensans',
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    _buildEmail(),
-                    const SizedBox(height: 30.0),
-                    _buildPassword(),
-                    _buildforgotPasswordBtn(),
-                    _buildRememberMeChckBox(),
-                    _buildLoginBtn(),
-                    _buildSignUp(),
-                    _buildSignInWithText(),
-                    GestureDetector(
-                      onTap: () => print('Login with Google'),
-                      child: Container(
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
+                child: Form(
+                  key:_formValidatorKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        'Sign in',
+                        style: TextStyle(
                           color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              offset: Offset(0, 2),
-                              blurRadius: 6.0,
-                            ),
-                          ],
-                          image: DecorationImage(
-                              image: AssetImage('web/icons/google.png')),
+                          fontFamily: 'Opensans',
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      _buildEmail(),
+                      const SizedBox(height: 30.0),
+                      _buildPassword(),
+                      _buildforgotPasswordBtn(),
+                      _buildRememberMeChckBox(),
+                      _buildLoginBtn(),
+                      _buildSignUp(),
+                      _buildSignInWithText(),
+                      GestureDetector(
+                        onTap: () => print('Login with Google'),
+                        child: Container(
+                          height: 60.0,
+                          width: 60.0,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(0, 2),
+                                blurRadius: 6.0,
+                              ),
+                            ],
+                            image: DecorationImage(
+                                image: AssetImage('web/icons/google.png')),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
