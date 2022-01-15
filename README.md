@@ -8,7 +8,7 @@
 ## Instalación
 El proyecto como tal no necesita instalarse, clonar el repositorio y listo.
 ## Uso
-* Actualmente contiene las pantallas de login, registro, landing page y algunas páginas más para probar el navigationDrawer esta aplicación esta orientada a los alumnos.
+* Esta aplicación esta orientada a los alumnos. Tras el registro y el login, el alumno ahora tiene acceso a su pagina del perfil y a un listado de posiciones de trabajo. Las posiciones listadas en la aplicacion para el alumno seran las que aun esten activas dentro del rango de fechas establecido por la empresa y ademas tambien deberá incluir el ciclo que este cursando el alumno para que este pueda acceder a ellas. Una vez inscrito, el alumno tendra informacion del estado de la inscripcion, siendo este por defecto en "Pendiente". En todo momento el alumno puede anular su candidatura a la posicion de trabajo.
 ## Requerido
 * Visual Studio Code
 * Chocolatey
