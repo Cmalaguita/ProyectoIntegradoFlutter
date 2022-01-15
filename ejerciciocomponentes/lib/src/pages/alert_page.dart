@@ -21,7 +21,7 @@ child: Column(
 
 mainAxisAlignment: MainAxisAlignment.center,
 children: <Widget>[
-Text('Alertas',style: TextStyle(color: Colors.redAccent,fontFamily: 'Leelawadee',fontWeight:FontWeight.bold,fontSize:55),)
+Text('Proximamente',style: TextStyle(color: Colors.redAccent,fontFamily: 'Leelawadee',fontWeight:FontWeight.bold,fontSize:55),)
 
 
 

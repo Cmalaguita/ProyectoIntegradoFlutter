@@ -15,6 +15,7 @@ class OffersPage extends StatefulWidget {
 }
 
 class _OffersPageState extends State<OffersPage> {
+  String idCiclo=dotenv.env['ID_CICLO'] ?? "No se ha encontrado la id del ciclo.";
   final _height = 565.0;
   final _controller = ScrollController();
   TextEditingController textController = TextEditingController();
@@ -112,7 +113,7 @@ class _OffersPageState extends State<OffersPage> {
 
   posiciones() {
     return FutureBuilder(
-        future: PosicionService().cargarTodasLasPosiciones(),
+        future: PosicionService().cargarTodasLasPosiciones(idCiclo),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             String alumnoid =

@@ -131,7 +131,7 @@ class Empresa {
 
     int id;
     String email;
-    String password;
+    String? password;
     String nombre;
     int provinciaId;
     Provincia provincia;

@@ -9,7 +9,9 @@ import 'src/pages/offers_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/pages/login_page.dart';
 Future <void> main() async {
+  //Metodo que carga la libreria de variables de entorno.
   await dotenv.load(fileName: 'environment.env');
+  dotenv.isEveryDefined(['ID_CICLO']);
   dotenv.isEveryDefined(['ID_ALUMNO']);
   runApp(const MyApp());
 }

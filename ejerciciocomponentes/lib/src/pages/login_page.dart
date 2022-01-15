@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:ejerciciocomponentes/src/services/alumno_service.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,10 +35,14 @@ Future<void> login() async {
 
     if (response.statusCode == 200) {
       dotenv.env['ID_ALUMNO']=response.body.toString();
-           
+      AlumnoService().cargarAlumnoPorId(response.body.toString()).then((value) => {
+
+      dotenv.env['ID_CICLO']= value.idCiclo.toString()
+    
+      });    
             
     
-      Navigator.pushNamed(context, '/');
+      Navigator.pushNamedAndRemoveUntil(context, '/',(Route<dynamic> route)=> false);
     }
     else {
       
