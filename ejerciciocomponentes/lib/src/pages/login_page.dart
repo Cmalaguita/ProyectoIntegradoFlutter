@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:ejerciciocomponentes/auth_http_client/auth_http_client.dart';
 import 'package:ejerciciocomponentes/src/services/alumno_service.dart';
+import 'package:ejerciciocomponentes/src/services/storage_service.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,15 +36,18 @@ Future<void> login() async {
 
 
     if (response.statusCode == 200) {
+    StorageService().add("authorization",response.headers['authorization'].toString());
       dotenv.env['ID_ALUMNO']=response.body.toString();
       AlumnoService().cargarAlumnoPorId(response.body.toString()).then((value) => {
-
-      dotenv.env['ID_CICLO']= value.idCiclo.toString()
-    
+      dotenv.env['ID_CICLO']= value.idCiclo.toString(),
+      if (value.emailVerificado) {
+         Navigator.pushNamedAndRemoveUntil(context, '/',(Route<dynamic> route)=> false,)
+      }
+      else if(!value.emailVerificado){
+      AlumnoService().generarCodigo(value.email),
+      Navigator.pushNamedAndRemoveUntil(context, 'emailVerify',(Route<dynamic> route)=> false,arguments: value.email)   
+      }
       });    
-            
-    
-      Navigator.pushNamedAndRemoveUntil(context, '/',(Route<dynamic> route)=> false);
     }
     else {
       
@@ -163,7 +168,7 @@ Future<void> login() async {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
+        onPressed: () => Navigator.pushNamed(context, 'passreco'),
         style: TextButton.styleFrom(padding: EdgeInsets.only(right: 0.0)),
         child: Text(
           'Forgot Password?',

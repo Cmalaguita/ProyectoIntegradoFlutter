@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'dart:io';
 
+import 'package:ejerciciocomponentes/auth_http_client/auth_http_client.dart';
 import 'package:ejerciciocomponentes/src/models/inscripcion.dart';
-import 'package:http/http.dart' as http;
-
 class InscripcionService {
+  AuthHttpClient authHttpClient= AuthHttpClient();
   crearInscripcion(Inscripcion i) async {
-     await http.post(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Crear_Inscripcion'),
+     await authHttpClient.post(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Crear_Inscripcion'),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
           HttpHeaders.acceptHeader: 'application/json',
@@ -22,7 +22,7 @@ class InscripcionService {
   }
 
 comprobarInscripcion(String idA, String idP) async {
-final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP='+idP+'&idA='+idA.toString()));
+final response = await authHttpClient.get(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP='+idP+'&idA='+idA.toString()));
    
       if (response.statusCode==200) {
         
@@ -33,7 +33,7 @@ return -1;
    
   }
   borrarInscripcion(String idInscripcion) async {
-final response = await http.delete(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Borrar_Inscripcion?id='+idInscripcion));
+final response = await authHttpClient.delete(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Borrar_Inscripcion?id='+idInscripcion));
     if (response.statusCode == 200) {
       return (response.body);
     } else {

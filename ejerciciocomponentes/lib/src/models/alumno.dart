@@ -20,8 +20,9 @@ class Alumno {
         this.fechaDeNacimiento,
         this.localidad,
         this.idProvincia,
-        this.notaMedia,{
-
+        this.notaMedia,
+        this.emailVerificado,
+        {
         this.provincia,
         this.ciclo,
         }
@@ -39,7 +40,7 @@ class Alumno {
     int idProvincia;
     Provincia? provincia;
     int notaMedia;
-
+    bool emailVerificado;
     factory Alumno.fromJson(Map<String, dynamic> json) => Alumno(
         json["id"],
         json["email"],
@@ -51,6 +52,7 @@ class Alumno {
         json["localidad"],
         json["idProvincia"],
         json["notaMedia"],
+        json["emailVerificado"],
         ciclo: Ciclo.fromJson(json["ciclo"]),
         provincia:Provincia.fromJson(json["provincia"]),
     );
@@ -68,5 +70,6 @@ class Alumno {
         "idProvincia": idProvincia,
         "provincia": provincia!.toJson(),
         "notaMedia": notaMedia,
+        "emailVerificado":emailVerificado,
     };
 }

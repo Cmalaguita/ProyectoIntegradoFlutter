@@ -1,4 +1,8 @@
+import 'package:ejerciciocomponentes/src/pages/email_verification.dart';
 import 'package:ejerciciocomponentes/src/pages/login_page.dart';
+import 'package:ejerciciocomponentes/src/pages/pass_recovery.dart';
+import 'package:ejerciciocomponentes/src/pages/pass_recovery2.dart';
+import 'package:ejerciciocomponentes/src/pages/pass_recovery_3.dart';
 import 'package:ejerciciocomponentes/src/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -44,7 +48,12 @@ Map<String, WidgetBuilder> _crearRutas(context) {
       '/': (context) => MyHomePage(),
       AlertPage.pageName: (context) => AlertPage(),
       'card': (context) => OffersPage(),
-      'avatar': (context) => AvatarPage()
+      'avatar': (context) => AvatarPage(),
+      'passreco': (context) => PassRecoveryPage(),
+      'passreco2': (context) => PassRecoveryPage2(),
+      'passreco3': (context) => PassRecoveryPage3(),
+      'emailVerify': (context) => EmailVerificationPage()
+
     };
   }
 
