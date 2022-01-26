@@ -20,7 +20,6 @@ class InscripcionService {
           "fechaInscripcion": DateTime.now().toIso8601String()
         }));
   }
-
 comprobarInscripcion(String idA, String idP) async {
 final response = await authHttpClient.get(Uri.parse('http://10.0.2.2:5000/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP='+idP+'&idA='+idA.toString()));
    

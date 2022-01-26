@@ -5,8 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
  class AlumnoService {
 AuthHttpClient authHttpClient= AuthHttpClient();
 
-Future <Alumno> cargarAlumnoPorId(String id) async {
-    final response = await authHttpClient.get(Uri.parse('http://10.0.2.2:5000/api/Alumno/Buscar_Alumno_Id?id='+id));
+Future <Alumno> cargarAlumnoPorId() async {
+    final response = await authHttpClient.get(Uri.parse('http://10.0.2.2:5000/api/Alumno/Buscar_Alumno_Id'));
     if (response.statusCode == 200) {
       return alumnoFromJson(response.body);
     } else {

@@ -14,7 +14,7 @@ import 'alert_page.dart';
 cargarPerfil(){
   String id = dotenv.env['ID_ALUMNO'] ?? "No se encuentra id de usuario";
  return FutureBuilder(
-    future: AlumnoService().cargarAlumnoPorId(id),
+    future: AlumnoService().cargarAlumnoPorId(),
     builder: (BuildContext context,AsyncSnapshot snapshot) {
       if (snapshot.hasData) {
     

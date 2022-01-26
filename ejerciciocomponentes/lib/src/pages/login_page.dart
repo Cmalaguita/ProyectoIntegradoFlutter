@@ -1,8 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-
-import 'package:ejerciciocomponentes/auth_http_client/auth_http_client.dart';
 import 'package:ejerciciocomponentes/src/services/alumno_service.dart';
 import 'package:ejerciciocomponentes/src/services/storage_service.dart';
 import 'package:email_validator/email_validator.dart';
@@ -10,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -21,7 +16,6 @@ bool _rememberMe = false;
 final _formValidatorKey = GlobalKey<FormState>();
 var emailController = TextEditingController();
 var passController = TextEditingController();
-
 Future<void> login() async {
   if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {   
     var response = await http.post(Uri.parse('http://10.0.2.2:5000/api/Alumno/Login_Alumno'),
@@ -33,12 +27,10 @@ Future<void> login() async {
           'email': emailController.text,
           'password': passController.text
         }));
-
-
     if (response.statusCode == 200) {
-    StorageService().add("authorization",response.headers['authorization'].toString());
+      StorageService().add("authorization",response.headers['authorization'].toString());
       dotenv.env['ID_ALUMNO']=response.body.toString();
-      AlumnoService().cargarAlumnoPorId(response.body.toString()).then((value) => {
+      AlumnoService().cargarAlumnoPorId().then((value) => {
       dotenv.env['ID_CICLO']= value.idCiclo.toString(),
       if (value.emailVerificado) {
          Navigator.pushNamedAndRemoveUntil(context, '/',(Route<dynamic> route)=> false,)
