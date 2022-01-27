@@ -11,15 +11,25 @@ import '../menu_provider.dart';
 import 'alert_page.dart';
 
 
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  
+Alumno? a;
 cargarPerfil(){
-  String id = dotenv.env['ID_ALUMNO'] ?? "No se encuentra id de usuario";
+ 
  return FutureBuilder(
     future: AlumnoService().cargarAlumnoPorId(),
     builder: (BuildContext context,AsyncSnapshot snapshot) {
       if (snapshot.hasData) {
-    
     if (snapshot.data is Alumno) {
-        
+        a=snapshot.data;
         return  Column(
           children: [SizedBox(
       height: 115,
@@ -51,7 +61,7 @@ cargarPerfil(){
             border: Border.all(color: Colors.blue.shade900, width: 5),  
             borderRadius: BorderRadius.circular(8),  
             boxShadow: [  
-              new BoxShadow(color: Colors.white, offset: new Offset(0,0),),  
+              new BoxShadow(color: Colors.white, offset: new Offset(0,0),),
             ],  
           ),  
                child: ListView(
@@ -84,11 +94,48 @@ cargarPerfil(){
 );
 }
 
-class MyHomePage extends StatelessWidget {
 
+  Widget _buildUpdateBtn() {
+    final ButtonStyle _eBtnStyle = ElevatedButton.styleFrom(
+      padding: const EdgeInsets.all(15.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      elevation: 5.0,
+      textStyle: const TextStyle(fontSize: 20, color: Colors.white),
+    );
+
+    return InkWell(
+      child: Container(
+        margin: EdgeInsets.only(left: 15,right: 15),
+        padding: const EdgeInsets.symmetric(vertical: 25.0),
+        width: double.infinity,
+        child: ElevatedButton(
+          child: const Text(
+            'Editar Perfil',
+            style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.5,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Opensans'),
+          ),
+          style: _eBtnStyle,
+          onPressed: (){
+      Navigator.pushNamed(context, 'updateProfile').then((value) => {
+setState(() {
+                     
+                        
+                      })
+        
+      });   
+
+          }, 
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       
       
       appBar: AppBar(
@@ -100,7 +147,6 @@ class MyHomePage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-
                     Color(0xFF73AEF5),
                     Color(0xFF61A4F1),
                     Color(0xFF478DE0),
@@ -110,15 +156,15 @@ class MyHomePage extends StatelessWidget {
                 )),
         child: Stack(
 children: <Widget>[Column(
-  
-
 mainAxisAlignment: MainAxisAlignment.start,
 children: <Widget>[
 
 Container(
   margin: EdgeInsets.only(top: 20),
   child: cargarPerfil(),
-)
+),
+
+_buildUpdateBtn()
 
 
 
@@ -131,5 +177,4 @@ Container(
      drawer: navigationDrawer(),   
     );
   }
-
 }
