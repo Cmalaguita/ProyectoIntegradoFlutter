@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ejerciciocomponentes/auth_http_client/auth_http_client.dart';
 import 'package:ejerciciocomponentes/src/models/alumno.dart';
 import 'package:ejerciciocomponentes/src/models/ciclo.dart';
 import 'package:ejerciciocomponentes/src/models/familia.dart';
@@ -25,6 +26,7 @@ class updateProfilePage extends StatefulWidget {
 }
 
 class _updateProfilePageState extends State<updateProfilePage> {
+  AuthHttpClient authHttpClient= AuthHttpClient();
   String email = '';
   final _formValidatorKey = GlobalKey<FormState>();
   int dropdownProvinceValue = 0;
@@ -282,7 +284,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
         qualificationController.value.text.isNotEmpty &&
         dropdownVTInProgressId > 0 &&
         dropdownProvinceValue > 0) {
-      var response = await http.put(
+      var response = await authHttpClient.put(
           Uri.parse('http://10.0.2.2:5000/api/Alumno/Actualizar_Alumno'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
