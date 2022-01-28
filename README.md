@@ -8,7 +8,7 @@
 ## Instalación
 El proyecto como tal no necesita instalarse, clonar el repositorio y listo.
 ## Uso
-* Esta aplicación esta orientada a los alumnos. Tras el registro y el login, el alumno ahora tiene acceso a su pagina del perfil y a un listado de posiciones de trabajo. Las posiciones listadas en la aplicacion para el alumno seran las que aun esten activas dentro del rango de fechas establecido por la empresa y ademas tambien deberá incluir el ciclo que este cursando el alumno para que este pueda acceder a ellas. Una vez inscrito, el alumno tendra informacion del estado de la inscripcion, siendo este por defecto en "Pendiente". En todo momento el alumno puede anular su candidatura a la posicion de trabajo.
+* Esta aplicación esta orientada a los alumnos. Tras el registro y el login, el alumno ahora tiene acceso a su pagina del perfil y a un listado de posiciones de trabajo. Las posiciones listadas en la aplicación para el alumno seran las que aun esten activas dentro del rango de fechas establecido por la empresa y ademas tambien deberá incluir el ciclo que este cursando el alumno para que este pueda acceder a ellas. Una vez inscrito, el alumno tendra informacion del estado de la inscripcion, siendo este por defecto en "Pendiente". En todo momento el alumno puede anular su candidatura a la posicion de trabajo. Se ha implementado un sistema de verificación de email y recuperación de contraseña. EL usuario recibe los códigos de verificación por email.
 ## Requerido
 * Visual Studio Code
 * Chocolatey
