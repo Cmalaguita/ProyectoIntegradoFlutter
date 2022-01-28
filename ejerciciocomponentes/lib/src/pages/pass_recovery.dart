@@ -89,7 +89,7 @@ class _PassRecoveryPageState extends State<PassRecoveryPage> {
               ),
             ),
             Container(
-               margin: const EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20),
               padding: const EdgeInsets.symmetric(vertical: 25.0),
               width: double.infinity,
               child: ElevatedButton(
@@ -107,8 +107,10 @@ class _PassRecoveryPageState extends State<PassRecoveryPage> {
                     if (_emailController.value.text.isNotEmpty &&
                         EmailValidator.validate(
                             _emailController.value.text.toString())) {
-                                AlumnoService().generarCodigo(_emailController.value.text);
-                              Navigator.pushNamed(context, 'passreco2', arguments:_emailController.value.text.toString());
+                      AlumnoService()
+                          .generarCodigo(_emailController.value.text);
+                      Navigator.pushNamed(context, 'passreco2',
+                          arguments: _emailController.value.text.toString());
                     } else if (_emailController.value.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Introduce el email.")));

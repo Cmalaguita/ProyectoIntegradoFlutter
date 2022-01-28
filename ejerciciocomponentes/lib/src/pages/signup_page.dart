@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String _selectedFamilia = "";
   String _selectedTipoCiclo = "";
   String _selectedCiclo = "";
-   String _selectedProvincia = "";
+  String _selectedProvincia = "";
   //controllers
   var emailController = TextEditingController();
   var passController = TextEditingController();
@@ -76,12 +76,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   if (newValue != null) {
                     dropdownProvinceValue = newValue.id;
                     setState(() {
-                    _selectedProvincia=newValue.nombre;
-                      
+                      _selectedProvincia = newValue.nombre;
                     });
                   }
                 },
-                hint: Text(_selectedProvincia,style: const TextStyle(
+                hint: Text(_selectedProvincia,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Opensans',
                     )),
@@ -122,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   if (newValue != null) {
                     dropdownFamilyId = newValue.id;
                     setState(() {
-                    _selectedFamilia = newValue.nombre;
+                      _selectedFamilia = newValue.nombre;
                       if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
                         futureCiclos = CicloService()
                             .cargarCiclosPorFamiliaYTipo(
@@ -177,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   if (newValue != null) {
                     dropdownTypeId = newValue.id;
                     setState(() {
-                    _selectedTipoCiclo = newValue.nombre;
+                      _selectedTipoCiclo = newValue.nombre;
                       if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
                         futureCiclos = CicloService()
                             .cargarCiclosPorFamiliaYTipo(
@@ -235,8 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     if (newValue != null) {
                       dropdownVTInProgressId = newValue.id;
                       setState(() {
-                      _selectedCiclo = newValue.nombre;
-                        
+                        _selectedCiclo = newValue.nombre;
                       });
                     }
                   },
@@ -273,7 +272,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
 //future de registro
   Future<void> signUp() async {
-   
     if (passController.value.text.isNotEmpty &&
         emailController.value.text.isNotEmpty &&
         nameController.value.text.isNotEmpty &&
@@ -429,8 +427,8 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
           height: 60.0,
           child: TextFormField(
-            validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -468,8 +466,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 )
               ]),
           height: 60.0,
-          child: TextFormField( validator: (value){
-              if ( value==null || value.isEmpty ) {
+          child: TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -582,8 +581,8 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
           height: 60.0,
           child: TextFormField(
-             validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -673,8 +672,8 @@ class _SignUpPageState extends State<SignUpPage> {
               ]),
           height: 60.0,
           child: TextFormField(
-             validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -789,13 +788,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 fontFamily: 'Opensans'),
           ),
           style: _eBtnStyle,
-          onPressed: (){
+          onPressed: () {
             if (_formValidatorKey.currentState!.validate()) {
-              if (passController.value.text==repeatPassController.value.text) {
+              if (passController.value.text ==
+                  repeatPassController.value.text) {
                 signUp();
               }
             }
-          }, 
+          },
         ),
       ),
     );

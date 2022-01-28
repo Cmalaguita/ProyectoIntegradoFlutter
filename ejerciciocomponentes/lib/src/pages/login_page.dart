@@ -7,52 +7,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-class _LoginPageState extends State<LoginPage> {
-bool _rememberMe = false;
-final _formValidatorKey = GlobalKey<FormState>();
-var emailController = TextEditingController();
-var passController = TextEditingController();
-Future<void> login() async {
-  if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {   
-    var response = await http.post(Uri.parse('http://10.0.2.2:5000/api/Alumno/Login_Alumno'),
-    headers:{
-       HttpHeaders.contentTypeHeader: 'application/json',
-                HttpHeaders.acceptHeader: 'application/json',
-    } ,
-        body: jsonEncode (<String,String>{
-          'email': emailController.text,
-          'password': passController.text
-        }));
-    if (response.statusCode == 200) {
-      StorageService().add("authorization",response.headers['authorization'].toString());
-      dotenv.env['ID_ALUMNO']=response.body.toString();
-      AlumnoService().cargarAlumnoPorId().then((value) => {
-      dotenv.env['ID_CICLO']= value.idCiclo.toString(),
-      if (value.emailVerificado) {
-         Navigator.pushNamedAndRemoveUntil(context, '/',(Route<dynamic> route)=> false,)
-      }
-      else if(!value.emailVerificado){
-      AlumnoService().generarCodigo(value.email),
-      Navigator.pushNamedAndRemoveUntil(context, 'emailVerify',(Route<dynamic> route)=> false,arguments: value.email)   
-      }
-      });    
-    }
-    else {
-      
-      ScaffoldMessenger.of (context)
-          .showSnackBar(SnackBar(content: Text("Credenciales inválidas.")));
-    }
-   } else {
-    ScaffoldMessenger.of (context)
-        .showSnackBar (SnackBar(content: Text("No se permiten campos en blanco.")));
 
-   }
-   }
-   
+class _LoginPageState extends State<LoginPage> {
+  bool _rememberMe = false;
+  final _formValidatorKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passController = TextEditingController();
+  Future<void> login() async {
+    if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
+      var response = await http.post(
+          Uri.parse('http://10.0.2.2:5000/api/Alumno/Login_Alumno'),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.acceptHeader: 'application/json',
+          },
+          body: jsonEncode(<String, String>{
+            'email': emailController.text,
+            'password': passController.text
+          }));
+      if (response.statusCode == 200) {
+        StorageService()
+            .add("authorization", response.headers['authorization'].toString());
+        dotenv.env['ID_ALUMNO'] = response.body.toString();
+        AlumnoService().cargarAlumnoPorId().then((value) => {
+              dotenv.env['ID_CICLO'] = value.idCiclo.toString(),
+              if (value.emailVerificado)
+                {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/',
+                    (Route<dynamic> route) => false,
+                  )
+                }
+              else if (!value.emailVerificado)
+                {
+                  AlumnoService().generarCodigo(value.email),
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'emailVerify', (Route<dynamic> route) => false,
+                      arguments: value.email)
+                }
+            });
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Credenciales inválidas.")));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("No se permiten campos en blanco.")));
+    }
+  }
 
   Widget _buildPassword() {
     return Column(
@@ -79,8 +87,8 @@ Future<void> login() async {
               ]),
           height: 60.0,
           child: TextFormField(
-             validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -127,14 +135,14 @@ Future<void> login() async {
                 )
               ]),
           height: 60.0,
-          child:  TextFormField(
-             validator: (value){
-              if ( value==null || value.isEmpty ) {
+          child: TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
-               if (!EmailValidator.validate(value)) {
-                 return "Formato de email incorrecto";
-               }
+              if (!EmailValidator.validate(value)) {
+                return "Formato de email incorrecto";
+              }
               return null;
             },
             controller: emailController,
@@ -221,24 +229,21 @@ Future<void> login() async {
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
-        child: const Text(
-          'Login',
-          style: TextStyle(
-              color: Colors.white,
-              letterSpacing: 1.5,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Opensans'),
-        ),
-        style: _eBtnStyle,
-        onPressed:  () {
-          
-          if (_formValidatorKey.currentState!.validate()) {        
-          login();
-          }
-          
-          }
-      ),
+          child: const Text(
+            'Login',
+            style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.5,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Opensans'),
+          ),
+          style: _eBtnStyle,
+          onPressed: () {
+            if (_formValidatorKey.currentState!.validate()) {
+              login();
+            }
+          }),
     );
   }
 
@@ -280,7 +285,6 @@ Future<void> login() async {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-
                     Color(0xFF73AEF5),
                     Color(0xFF61A4F1),
                     Color(0xFF478DE0),
@@ -297,7 +301,7 @@ Future<void> login() async {
                   vertical: 40.0,
                 ),
                 child: Form(
-                  key:_formValidatorKey,
+                  key: _formValidatorKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,

@@ -25,7 +25,7 @@ class updateProfilePage extends StatefulWidget {
 }
 
 class _updateProfilePageState extends State<updateProfilePage> {
-  String email='';
+  String email = '';
   final _formValidatorKey = GlobalKey<FormState>();
   int dropdownProvinceValue = 0;
   int dropdownFamilyId = 0;
@@ -38,7 +38,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
   String _selectedFamilia = "";
   String _selectedTipoCiclo = "";
   String _selectedCiclo = "";
-   String _selectedProvincia = "";
+  String _selectedProvincia = "";
   //controllers
   var emailController = TextEditingController();
   var passController = TextEditingController();
@@ -79,12 +79,12 @@ class _updateProfilePageState extends State<updateProfilePage> {
                   if (newValue != null) {
                     dropdownProvinceValue = newValue.id;
                     setState(() {
-                    _selectedProvincia=newValue.nombre;
-                      
+                      _selectedProvincia = newValue.nombre;
                     });
                   }
                 },
-                hint: Text(_selectedProvincia,style: const TextStyle(
+                hint: Text(_selectedProvincia,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Opensans',
                     )),
@@ -125,7 +125,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
                   if (newValue != null) {
                     dropdownFamilyId = newValue.id;
                     setState(() {
-                    _selectedFamilia = newValue.nombre;
+                      _selectedFamilia = newValue.nombre;
                       if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
                         futureCiclos = CicloService()
                             .cargarCiclosPorFamiliaYTipo(
@@ -180,7 +180,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
                   if (newValue != null) {
                     dropdownTypeId = newValue.id;
                     setState(() {
-                    _selectedTipoCiclo = newValue.nombre;
+                      _selectedTipoCiclo = newValue.nombre;
                       if (dropdownFamilyId > 0 && dropdownTypeId > 0) {
                         futureCiclos = CicloService()
                             .cargarCiclosPorFamiliaYTipo(
@@ -238,8 +238,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
                     if (newValue != null) {
                       dropdownVTInProgressId = newValue.id;
                       setState(() {
-                      _selectedCiclo = newValue.nombre;
-                        
+                        _selectedCiclo = newValue.nombre;
                       });
                     }
                   },
@@ -276,9 +275,8 @@ class _updateProfilePageState extends State<updateProfilePage> {
 
 //future de registro
   Future<void> updateProfile(String email) async {
- print(email);
-    if (
-        nameController.value.text.isNotEmpty &&
+    print(email);
+    if (nameController.value.text.isNotEmpty &&
         lastnameController.value.text.isNotEmpty &&
         townController.value.text.isNotEmpty &&
         qualificationController.value.text.isNotEmpty &&
@@ -291,7 +289,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
             HttpHeaders.acceptHeader: 'application/json',
           },
           body: jsonEncode({
-            'email':email,
+            'email': email,
             'nombre': nameController.text,
             'apellidos': lastnameController.text,
             "idCiclo": dropdownVTInProgressId,
@@ -429,8 +427,8 @@ class _updateProfilePageState extends State<updateProfilePage> {
               ]),
           height: 60.0,
           child: TextFormField(
-            validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -468,8 +466,9 @@ class _updateProfilePageState extends State<updateProfilePage> {
                 )
               ]),
           height: 60.0,
-          child: TextFormField( validator: (value){
-              if ( value==null || value.isEmpty ) {
+          child: TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -582,8 +581,8 @@ class _updateProfilePageState extends State<updateProfilePage> {
               ]),
           height: 60.0,
           child: TextFormField(
-             validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -673,8 +672,8 @@ class _updateProfilePageState extends State<updateProfilePage> {
               ]),
           height: 60.0,
           child: TextFormField(
-             validator: (value){
-              if ( value==null || value.isEmpty ) {
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return "Campo obligatorio";
               }
               return null;
@@ -698,6 +697,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
       ],
     );
   }
+
   Widget _buildUpdateBtn(String email) {
     final ButtonStyle _eBtnStyle = ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(15.0),
@@ -721,11 +721,11 @@ class _updateProfilePageState extends State<updateProfilePage> {
                 fontFamily: 'Opensans'),
           ),
           style: _eBtnStyle,
-          onPressed: (){
+          onPressed: () {
             if (_formValidatorKey.currentState!.validate()) {
               updateProfile(email);
             }
-          }, 
+          },
         ),
       ),
     );
@@ -733,78 +733,75 @@ class _updateProfilePageState extends State<updateProfilePage> {
 
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: FutureBuilder(
-        future:AlumnoService().cargarAlumnoPorId() ,
-        builder: (BuildContext context,AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data is Alumno) {
-          email=snapshot.data.email;
-          return Stack(
-            children: <Widget>[
-              Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ))),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 40.0,
-                  ),
-                  child: Form(
-                    key: _formValidatorKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'Editar Perfil',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Opensans',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+          future: AlumnoService().cargarAlumnoPorId(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data is Alumno) {
+                email = snapshot.data.email;
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xFF73AEF5),
+                            Color(0xFF61A4F1),
+                            Color(0xFF478DE0),
+                            Color(0xFF398AE5),
+                          ],
+                          stops: [0.1, 0.4, 0.7, 0.9],
+                        ))),
+                    Container(
+                      height: double.infinity,
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40.0,
+                          vertical: 40.0,
+                        ),
+                        child: Form(
+                          key: _formValidatorKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              const Text(
+                                'Editar Perfil',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Opensans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              const SizedBox(height: 30.0),
+                              _buildPersonalData(),
+                              _buildUpdateBtn(email),
+                            ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 30.0,
-                        ),
-                        const SizedBox(height: 30.0),              
-                        _buildPersonalData(),
-                        _buildUpdateBtn(email),                
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
-            }else{
-            return const CircularProgressIndicator();
-          }
-            
-          }else{
-            return const CircularProgressIndicator();
-          }
-        }
-      ),
+                      ),
+                    )
+                  ],
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            } else {
+              return const CircularProgressIndicator();
+            }
+          }),
     ));
   }
 }

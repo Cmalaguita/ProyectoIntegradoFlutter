@@ -8,21 +8,22 @@ class AvatarPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Avatar'),
       ),
-       body:Center(
-child: Column(
-
-mainAxisAlignment: MainAxisAlignment.center,
-children: <Widget>[
-Text('Avatares',style: TextStyle(color: Colors.redAccent,fontFamily: 'Leelawadee',fontWeight:FontWeight.bold,fontSize:55),)
-
-
-
-],
-
-),
-
-      ) ,
-     drawer: navigationDrawer(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Avatares',
+              style: TextStyle(
+                  color: Colors.redAccent,
+                  fontFamily: 'Leelawadee',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 55),
+            )
+          ],
+        ),
+      ),
+      drawer: navigationDrawer(),
     );
   }
 }
