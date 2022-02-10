@@ -285,7 +285,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
         dropdownVTInProgressId > 0 &&
         dropdownProvinceValue > 0) {
       var response = await authHttpClient.put(
-          Uri.parse('http://10.0.2.2:5000/api/Alumno/Actualizar_Alumno'),
+          Uri.parse('http://vps-697f2832.vps.ovh.net/api/Alumno/Actualizar_Alumno'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.acceptHeader: 'application/json',

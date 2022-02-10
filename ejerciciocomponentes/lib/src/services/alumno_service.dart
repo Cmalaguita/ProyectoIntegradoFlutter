@@ -8,7 +8,7 @@ class AlumnoService {
 
   Future<Alumno> cargarAlumnoPorId() async {
     final response = await authHttpClient
-        .get(Uri.parse('http://10.0.2.2:5000/api/Alumno/Buscar_Alumno_Id'));
+        .get(Uri.parse('http://vps-697f2832.vps.ovh.net/api/Alumno/Buscar_Alumno_Id'));
     if (response.statusCode == 200) {
       return alumnoFromJson(response.body);
     } else {
@@ -18,7 +18,7 @@ class AlumnoService {
 
   Future generarCodigo(String email) async {
     final response = await http.put(Uri.parse(
-        'http://10.0.2.2:5000/api/Alumno/Generar_Codigo_Verificacion?email=' +
+        'http://vps-697f2832.vps.ovh.net/api/Alumno/Generar_Codigo_Verificacion?email=' +
             email));
     if (response.statusCode == 200) {
       return true;
@@ -29,7 +29,7 @@ class AlumnoService {
 
   Future<bool> comprobarCodigo(String email, String codigo) async {
     final response = await authHttpClient.get(Uri.parse(
-        'http://10.0.2.2:5000/api/Alumno/Comprobar_Codigo_Verificacion?email=' +
+        'http://vps-697f2832.vps.ovh.net/api/Alumno/Comprobar_Codigo_Verificacion?email=' +
             email +
             '&codigo=' +
             codigo));
@@ -43,7 +43,7 @@ class AlumnoService {
   Future<bool> comprobarCodigoVerificacionEmail(
       String codigo, String email) async {
     final response = await authHttpClient.put(Uri.parse(
-        'http://10.0.2.2:5000/api/Alumno/Comprobar_Codigo_Verificacion_Email?codigo=' +
+        'http://vps-697f2832.vps.ovh.net/api/Alumno/Comprobar_Codigo_Verificacion_Email?codigo=' +
             codigo +
             '&email=' +
             email));
@@ -56,7 +56,7 @@ class AlumnoService {
 
   Future<bool> cambiarPassword(String pass, String email) async {
     final response = await authHttpClient.put(Uri.parse(
-        'http://10.0.2.2:5000/api/Alumno/Cambiar_Password_Alumno?pass=' +
+        'http://vps-697f2832.vps.ovh.net/api/Alumno/Cambiar_Password_Alumno?pass=' +
             pass +
             '&email=' +
             email));
