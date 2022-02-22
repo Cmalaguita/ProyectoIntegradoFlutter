@@ -9,7 +9,7 @@ class InscripcionService {
   AuthHttpClient authHttpClient = AuthHttpClient();
   crearInscripcion(Inscripcion i) async {
     await authHttpClient.post(
-        Uri.parse('http://vps-697f2832.vps.ovh.net/api/Inscripcion/Crear_Inscripcion'),
+        Uri.parse('https://api.infocarlos.me/api/Inscripcion/Crear_Inscripcion'),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
           HttpHeaders.acceptHeader: 'application/json',
@@ -25,7 +25,7 @@ class InscripcionService {
 
   comprobarInscripcion(String idA, String idP) async {
     final response = await authHttpClient.get(Uri.parse(
-        'http://vps-697f2832.vps.ovh.net/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP=' +
+        'https://api.infocarlos.me/api/Inscripcion/Comprobar_Existencia_Por_Alumno_Y_Posicion?idP=' +
             idP +
             '&idA=' +
             idA.toString()));
@@ -39,7 +39,7 @@ class InscripcionService {
 
   borrarInscripcion(String idInscripcion) async {
     final response = await authHttpClient.delete(Uri.parse(
-        'http://vps-697f2832.vps.ovh.net/api/Inscripcion/Borrar_Inscripcion?id=' +
+        'https://api.infocarlos.me/api/Inscripcion/Borrar_Inscripcion?id=' +
             idInscripcion));
     if (response.statusCode == 200) {
       return (response.body);

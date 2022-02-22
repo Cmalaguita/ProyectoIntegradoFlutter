@@ -283,7 +283,7 @@ class _SignUpPageState extends State<SignUpPage> {
         repeatPassController.value.text.isNotEmpty) {
           // http://10.0.2.2:5000
       var response = await http.post(
-          Uri.parse('http://vps-697f2832.vps.ovh.net/api/Alumno/Sign_Up_Alumno'),
+          Uri.parse('https://api.infocarlos.me/api/Alumno/Sign_Up_Alumno'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.acceptHeader: 'application/json',

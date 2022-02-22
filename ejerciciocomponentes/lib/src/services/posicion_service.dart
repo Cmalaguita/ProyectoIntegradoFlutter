@@ -5,7 +5,7 @@ class PosicionService {
   AuthHttpClient authHttpClient = AuthHttpClient();
   Future<List<Posicion>> cargarTodasLasPosiciones(String id) async {
     final response = await authHttpClient.get(Uri.parse(
-        'http://vps-697f2832.vps.ovh.net/api/PosicionDeTrabajo/Obtener_Posiciones_De_Trabajo_Por_Ciclo?id=' +
+        'https://api.infocarlos.me/api/PosicionDeTrabajo/Obtener_Posiciones_De_Trabajo_Por_Ciclo?id=' +
             id));
     if (response.statusCode == 200) {
       return posicionesFromJson(response.body);

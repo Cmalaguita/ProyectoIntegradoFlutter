@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
       var response = await http.post(
-          Uri.parse('http://vps-697f2832.vps.ovh.net/api/Alumno/Login_Alumno'),
+          Uri.parse('https://api.infocarlos.me/api/Alumno/Login_Alumno'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.acceptHeader: 'application/json',
