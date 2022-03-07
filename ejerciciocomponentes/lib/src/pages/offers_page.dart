@@ -115,6 +115,7 @@ class _OffersPageState extends State<OffersPage> {
     return FutureBuilder(
         future: PosicionService().cargarTodasLasPosiciones(idCiclo),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          
           if (snapshot.hasData) {
             String alumnoid =
                 dotenv.env['ID_ALUMNO'] ?? "No se encuentra id de usuario";

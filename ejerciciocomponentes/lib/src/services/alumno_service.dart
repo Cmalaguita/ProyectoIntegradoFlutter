@@ -1,5 +1,6 @@
 import 'package:ejerciciocomponentes/auth_http_client/auth_http_client.dart';
 import 'package:ejerciciocomponentes/src/models/alumno.dart';
+import 'package:ejerciciocomponentes/src/models/mensaje.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,4 +67,27 @@ class AlumnoService {
       return false;
     }
   }
+Future<List<Mensaje>> cargarMensajesNoLeidos(String id) async {
+    final response = await authHttpClient.get(Uri.parse(
+        'https://api.infocarlos.me/api/Mensaje/Obtener_Mensajes_No_Leidos?alumnoId=' +
+            id));
+    if (response.statusCode == 200) {
+    List<Mensaje> listam = mensajesFromJson(response.body);
+      return listam;
+    } else {
+      throw Exception('Failed to load Data');
+    }
+  }
+
+  Future<bool> cambiarEstadoMensaje(String id) async {
+    final response = await authHttpClient.put(Uri.parse(
+        'https://api.infocarlos.me/api/Mensaje/Cambiar_Estado_Lectura?idmensaje='+id+'&leido=true'));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
 }

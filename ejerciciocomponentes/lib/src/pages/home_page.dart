@@ -1,5 +1,7 @@
 import 'package:ejerciciocomponentes/navigation_drawer/navigation_drawer.dart';
 import 'package:ejerciciocomponentes/src/models/alumno.dart';
+import 'package:ejerciciocomponentes/src/models/mensaje.dart';
+
 import 'package:ejerciciocomponentes/src/pages/offers_page.dart';
 import 'package:ejerciciocomponentes/src/services/alumno_service.dart';
 import 'package:ejerciciocomponentes/src/utils/icon_utils.dart';
@@ -17,8 +19,127 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
   Alumno? a;
+  String alumnoId =
+      dotenv.env['ID_ALUMNO'] ?? "No se ha encontrado la id del alumno.";
+  List<Mensaje> listam = [];
+  @override
+  void initState() {
+    recogeMensajes();
+    super.initState();
+  }
+
+Future<void>recogeMensajes() async{
+  List<Mensaje> mensajes=[];
+   await AlumnoService().cargarMensajesNoLeidos(alumnoId).then((value) =>mensajes=value );
+  setState(() {
+    listam=mensajes;
+    if (mensajes.isNotEmpty) {
+      
+    WidgetsBinding.instance!.addPostFrameCallback(
+        //metodo que carga el dialog
+        (_) => mostrarDialogo());
+    }
+  });
+}
+
+mostrarDialogo(){
+
+showDialog(
+      context: context, 
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return  SimpleDialog(
+          title:  Text('Empresas interesadas',style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Opensans',
+                              fontWeight: FontWeight.bold,
+                             
+                              fontSize: 28),),
+          children:rellenarListaWidgets(),
+        );
+      },
+    ).then((value){
+      print("DESPUES DEL DIALOG");
+      if (listam!=null || listam.isNotEmpty) {
+        
+      for (var m in listam) {
+        AlumnoService().cambiarEstadoMensaje(m.id.toString());
+      }
+      }
+    });
+}
+
+
+rellenarListaWidgets(){
+  int contador = 1;
+  List<Widget> listwid = [
+                Container(
+                  height: 20,
+                )
+              ];
+
+              for (Mensaje m in listam) {
+                listwid.add(
+                  ListTile(
+                    title: Text(
+                        'Mensaje ' + contador.toString(),style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Opensans',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25),),
+                        subtitle:  Text(m.contenido,style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Opensans',
+                            
+                             
+                              fontSize: 20),),
+                    
+                  ),
+                );
+              }
+              return listwid;
+}
+ 
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Mi Perfil'),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF73AEF5),
+            Color(0xFF61A4F1),
+            Color(0xFF478DE0),
+            Color(0xFF398AE5),
+          ],
+          stops: [0.1, 0.4, 0.7, 0.9],
+        )),
+        child: Stack(children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: cargarPerfil(),
+              ),
+              _buildUpdateBtn()
+            ],
+          ),
+        ]),
+      ),
+      drawer: navigationDrawer(),
+    );
+  }
+
   cargarPerfil() {
     return FutureBuilder(
         future: AlumnoService().cargarAlumnoPorId(),
@@ -39,10 +160,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           radius: 70,
                           backgroundColor: Colors.blue[900],
                           child: const CircleAvatar(
-                            radius: 53,
+                            radius: 55,
                             backgroundColor: Colors.white,
                             child: CircleAvatar(
-                              radius: 50,
+                              radius: 53,
                               backgroundImage: NetworkImage(
                                   'https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/61/Otto_Octavius.png/revision/latest?cb=20210824014645&path-prefix=es'),
                             ),
@@ -188,42 +309,6 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mi Perfil'),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF73AEF5),
-            Color(0xFF61A4F1),
-            Color(0xFF478DE0),
-            Color(0xFF398AE5),
-          ],
-          stops: [0.1, 0.4, 0.7, 0.9],
-        )),
-        child: Stack(children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: cargarPerfil(),
-              ),
-              _buildUpdateBtn()
-            ],
-          ),
-        ]),
-      ),
-      drawer: navigationDrawer(),
     );
   }
 }

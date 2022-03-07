@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formValidatorKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passController = TextEditingController();
+
   Future<void> login() async {
     if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
       var response = await http.post(
@@ -38,6 +39,11 @@ class _LoginPageState extends State<LoginPage> {
               dotenv.env['ID_CICLO'] = value.idCiclo.toString(),
               if (value.emailVerificado)
                 {
+
+
+
+
+
                   Navigator.pushNamedAndRemoveUntil(
                     context,
                     '/',
@@ -217,7 +223,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
   Widget _buildLoginBtn() {
     final ButtonStyle _eBtnStyle = ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(15.0),
@@ -267,7 +272,6 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
