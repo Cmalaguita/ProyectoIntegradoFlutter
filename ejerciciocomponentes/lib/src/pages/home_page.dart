@@ -217,7 +217,7 @@ return Image.memory(base64Decode(image));
                     ),
                   ),
                   Container(
-                        child: Text('Pulsa en la imagen para cambiarla',style: TextStyle(
+                        child: const Text('Pulsa en la imagen para cambiarla',style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18
                         ),),),

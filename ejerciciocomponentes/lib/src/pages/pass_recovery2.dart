@@ -67,6 +67,7 @@ class _PassRecoveryPage2State extends State<PassRecoveryPage2> {
                 }
               },
               controller: _codeController,
+              
               keyboardType: TextInputType.emailAddress,
               style:
                   const TextStyle(color: Colors.white, fontFamily: 'Opensans'),
@@ -74,7 +75,7 @@ class _PassRecoveryPage2State extends State<PassRecoveryPage2> {
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14.0),
                 prefixIcon: Icon(
-                  Icons.email,
+                  Icons.code,
                   color: Colors.white,
                 ),
                 hintText: 'Introduzca el código',

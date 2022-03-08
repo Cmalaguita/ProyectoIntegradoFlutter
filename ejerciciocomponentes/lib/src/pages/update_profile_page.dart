@@ -15,6 +15,7 @@ import 'package:ejerciciocomponentes/src/services/familia_service.dart';
 import 'package:ejerciciocomponentes/src/services/provincia_service.dart';
 import 'package:ejerciciocomponentes/src/services/tipociclo_service.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter/material.dart';
@@ -302,8 +303,10 @@ class _updateProfilePageState extends State<updateProfilePage> {
           }));
 
       if (response.statusCode == 200) {
-        print(response.statusCode);
-
+       var a = alumnoFromJson(response.body);
+        print(a);
+         dotenv.env['ID_CICLO'] = a.idCiclo.toString();
+         
         Navigator.pop(context);
       } else {
         print(response.statusCode);

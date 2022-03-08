@@ -66,6 +66,7 @@ class _PassRecoveryPage3State extends State<PassRecoveryPage3> {
                       ]),
                   child: TextFormField(
                     enabled: true,
+                    obscureText:true,
                     validator: (value) {
                       if (_passController.value.text.isEmpty) {
                         return "Campo obligatorio";
@@ -79,7 +80,7 @@ class _PassRecoveryPage3State extends State<PassRecoveryPage3> {
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.only(top: 14.0),
                       prefixIcon: Icon(
-                        Icons.email,
+                        Icons.lock,
                         color: Colors.white,
                       ),
                       hintText: 'Introduzca la contraseña',
@@ -104,6 +105,7 @@ class _PassRecoveryPage3State extends State<PassRecoveryPage3> {
                         )
                       ]),
                   child: TextFormField(
+                    obscureText:true,
                     enabled: true,
                     validator: (value) {
                       if (_repeatPassController.value.text.isEmpty) {
@@ -121,7 +123,7 @@ class _PassRecoveryPage3State extends State<PassRecoveryPage3> {
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.only(top: 14.0),
                       prefixIcon: Icon(
-                        Icons.email,
+                        Icons.lock,
                         color: Colors.white,
                       ),
                       hintText: 'Repita la contraseña',

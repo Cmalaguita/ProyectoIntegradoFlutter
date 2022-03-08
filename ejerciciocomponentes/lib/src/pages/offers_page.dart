@@ -31,7 +31,7 @@ class _OffersPageState extends State<OffersPage> {
         body: Stack(children: [
           posiciones(),
         ]
-//Drawer de navegacion
+
             ));
   }
 
@@ -210,6 +210,7 @@ class _OffersPageState extends State<OffersPage> {
                                       style: TextStyle(color: Colors.black),
                                     ),
                                   ),
+                                  SizedBox(height:10)
                                 ])),
                             Container(
                               decoration: BoxDecoration(
