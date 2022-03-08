@@ -7,9 +7,6 @@ import 'package:ejerciciocomponentes/src/pages/signup_page.dart';
 import 'package:ejerciciocomponentes/src/pages/update_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'src/pages/alert_page.dart';
-import 'src/pages/avatar_page.dart';
 import 'src/pages/offers_page.dart';
 import 'src/pages/home_page.dart';
 import 'src/pages/login_page.dart';
@@ -47,9 +44,7 @@ Map<String, WidgetBuilder> _crearRutas(context) {
       'signup':(context)=>SignUpPage(),
       'login':(context)=>LoginPage(),
       '/': (context) => MyHomePage(),
-      AlertPage.pageName: (context) => AlertPage(),
       'card': (context) => OffersPage(),
-      'avatar': (context) => AvatarPage(),
       'passreco': (context) => PassRecoveryPage(),
       'passreco2': (context) => PassRecoveryPage2(),
       'passreco3': (context) => PassRecoveryPage3(),

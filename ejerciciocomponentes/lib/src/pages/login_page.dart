@@ -14,7 +14,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _rememberMe = false;
   final _formValidatorKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passController = TextEditingController();
@@ -72,11 +71,11 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Password',
           style: TextStyle(fontFamily: 'Opensans', color: Colors.white),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
         Container(
@@ -88,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.grey.shade400.withOpacity(0.2),
                   spreadRadius: 1,
                   blurRadius: 1,
-                  offset: Offset(0, 7),
+                  offset: const Offset(0, 7),
                 )
               ]),
           height: 60.0,
@@ -198,31 +197,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildRememberMeChckBox() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-              data: ThemeData(unselectedWidgetColor: Colors.white),
-              child: Checkbox(
-                value: _rememberMe,
-                checkColor: Colors.green,
-                activeColor: Colors.white,
-                onChanged: (value) {
-                  setState(() {
-                    _rememberMe = value!;
-                  });
-                },
-              )),
-          const Text(
-            'Remember me',
-            style: TextStyle(color: Colors.white),
-          ),
-        ],
-      ),
-    );
-  }
+
   Widget _buildLoginBtn() {
     final ButtonStyle _eBtnStyle = ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(15.0),
@@ -252,26 +227,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildSignInWithText() {
-    return Column(
-      children: const <Widget>[
-        Text(
-          '- OR -',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        Text(
-          'Sign in with',
-          style: TextStyle(color: Colors.white),
-        ),
-      ],
-    );
-  }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -326,30 +282,8 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 30.0),
                       _buildPassword(),
                       _buildforgotPasswordBtn(),
-                      _buildRememberMeChckBox(),
                       _buildLoginBtn(),
                       _buildSignUp(),
-                      _buildSignInWithText(),
-                      GestureDetector(
-                        onTap: () => print('Login with Google'),
-                        child: Container(
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                offset: Offset(0, 2),
-                                blurRadius: 6.0,
-                              ),
-                            ],
-                            image: DecorationImage(
-                                image: AssetImage('web/icons/google.png')),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:ejerciciocomponentes/auth_http_client/auth_http_client.dart';
 import 'package:ejerciciocomponentes/src/models/alumno.dart';
 import 'package:ejerciciocomponentes/src/models/mensaje.dart';
@@ -89,5 +92,52 @@ Future<List<Mensaje>> cargarMensajesNoLeidos(String id) async {
     }
   }
 
+  Future<Alumno> cambiarImagen(Alumno a) async {
+    final response = await authHttpClient.put(Uri.parse(
+        'https://api.infocarlos.me/api/Alumno/Cambiar_Imagen_Alumno'),headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
+        body: jsonEncode({
+         "id": a.id,
+        "email": a.email,
+        "password": a.password,
+        "nombre": a.nombre,
+        "apellidos": a.apellidos,
+        "idCiclo": a.idCiclo,
+        "ciclo": a.ciclo!.toJson(),
+        "fechaDeNacimiento": a.fechaDeNacimiento.toIso8601String(),
+        "localidad": a.localidad,
+        "idProvincia": a.idProvincia,
+        "provincia": a.provincia!.toJson(),
+        "notaMedia": a.notaMedia,
+        "emailVerificado":a.emailVerificado,
+        "imagen":a.imagen
+        }));
+    if (response.statusCode == 200) {
+      Alumno a = alumnoFromJson(response.body);
+      return a;
+    } else {
+     throw Exception('No se ha podido cambiar de imagen.');
+    }
+  }
+
+
+
+  // crearInscripcion(Inscripcion i) async {
+  //   await authHttpClient.post(
+  //       Uri.parse('https://api.infocarlos.me/api/Inscripcion/Crear_Inscripcion'),
+  //       headers: {
+  //         HttpHeaders.contentTypeHeader: 'application/json',
+  //         HttpHeaders.acceptHeader: 'application/json',
+  //       },
+  //       body: jsonEncode({
+  //         "alumnoId": i.alumnoId,
+  //         "empresaId": i.empresaId,
+  //         "posicionId": i.posicionId,
+  //         "estadoInscripcion": "pendiente",
+  //         "fechaInscripcion": DateTime.now().toIso8601String()
+  //       }));
+  // }
 
 }

@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:ejerciciocomponentes/navigation_drawer/navigation_drawer.dart';
 import 'package:ejerciciocomponentes/src/models/alumno.dart';
 import 'package:ejerciciocomponentes/src/models/mensaje.dart';
@@ -7,10 +11,10 @@ import 'package:ejerciciocomponentes/src/services/alumno_service.dart';
 import 'package:ejerciciocomponentes/src/utils/icon_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../main.dart';
 import '../menu_provider.dart';
-import 'alert_page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -18,9 +22,10 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-
 class _MyHomePageState extends State<MyHomePage> {
+  final ImagePicker _iPicker=ImagePicker();
+  ImageProvider? imgProv;
+  File? pickedFile;
   Alumno? a;
   String alumnoId =
       dotenv.env['ID_ALUMNO'] ?? "No se ha encontrado la id del alumno.";
@@ -45,6 +50,7 @@ Future<void>recogeMensajes() async{
   });
 }
 
+
 mostrarDialogo(){
 
 showDialog(
@@ -52,7 +58,7 @@ showDialog(
       barrierDismissible: true,
       builder: (BuildContext context) {
         return  SimpleDialog(
-          title:  Text('Empresas interesadas',style: TextStyle(
+          title:  const Text('Empresas interesadas',style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Opensans',
                               fontWeight: FontWeight.bold,
@@ -90,7 +96,7 @@ rellenarListaWidgets(){
                               fontFamily: 'Opensans',
                               fontWeight: FontWeight.bold,
                               fontSize: 25),),
-                        subtitle:  Text(m.contenido,style: TextStyle(
+                        subtitle: Text(m.contenido,style: const TextStyle(
                               color: Colors.black,
                               fontFamily: 'Opensans',
                             
@@ -139,7 +145,32 @@ rellenarListaWidgets(){
       drawer: navigationDrawer(),
     );
   }
+  
+_cambiarFotoPerfil(ImageSource source,Alumno al) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    if (pickedFile==null) return;
 
+     final temporalProfilePic = File(pickedFile.path);
+    setState(() => this.pickedFile = temporalProfilePic);
+
+        File imageFile = File(pickedFile.path);
+        if (imageFile==null) return; 
+     
+      String imgBase64 =conversorImagenABD(imageFile);
+     return imgBase64;
+        
+}
+conversorImagenABD(File image){
+//imagen a bytes
+Uint8List imgbytes1 = image.readAsBytesSync();
+//codificar bytes a base64
+String bs4str = base64.encode(imgbytes1);
+return bs4str;
+}
+
+Image conversorBDAImagen(String image)  {
+return Image.memory(base64Decode(image));
+}
   cargarPerfil() {
     return FutureBuilder(
         future: AlumnoService().cargarAlumnoPorId(),
@@ -150,28 +181,46 @@ rellenarListaWidgets(){
               return Column(
                 children: [
                   SizedBox(
-                    height: 115,
-                    width: 115,
+                    height: 150,
+                    width: 150,
                     child: Stack(
                       fit: StackFit.expand,
                       clipBehavior: Clip.none,
                       children: [
-                        CircleAvatar(
-                          radius: 70,
-                          backgroundColor: Colors.blue[900],
-                          child: const CircleAvatar(
-                            radius: 55,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 53,
-                              backgroundImage: NetworkImage(
-                                  'https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/61/Otto_Octavius.png/revision/latest?cb=20210824014645&path-prefix=es'),
+                      GestureDetector(
+                        onTap: () {                        
+                  _cambiarFotoPerfil(ImageSource.gallery,a!).then((value){
+                    if (value!=null) {
+                      a!.imagen=value;
+                    AlumnoService().cambiarImagen(a!);
+               setState(() {
+                 conversorBDAImagen(a!.imagen);
+                 Navigator.pushReplacementNamed(context, '/');
+               });
+                    }
+                  });
+                        },
+                          child: CircleAvatar(
+                            radius: 90,
+                            backgroundColor: Colors.blue[900],
+                            child:  CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              child: CircleAvatar(
+                                radius: 80,
+                                foregroundImage: conversorBDAImagen(a!.imagen).image,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  Container(
+                        child: Text('Pulsa en la imagen para cambiarla',style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                        ),),),
                   Container(
                     margin: const EdgeInsets.all(5),
                     padding: const EdgeInsets.all(7),

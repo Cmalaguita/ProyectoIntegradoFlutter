@@ -41,6 +41,7 @@ dependencies:
   badges: ^2.0.2
   anim_search_bar: ^2.0.2
   flutter_secure_storage: ^5.0.2
+  image_picker: ^0.8.4+10
 carousel_slider: ^4.0.0
 dev_dependencies:
   flutter_test:

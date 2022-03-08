@@ -7,16 +7,6 @@
             "texto":"Mi Perfil"
         },
         {
-            "ruta":"alert",
-            "icon":"add_alert",
-            "texto":"Inscripciones"
-        },
-        {
-            "ruta":"avatar",
-            "icon":"accessibility",
-            "texto":"Avatares"
-        },
-        {
             "ruta":"card",
             "icon":"folder_open",
             "texto":"Posiciones"
