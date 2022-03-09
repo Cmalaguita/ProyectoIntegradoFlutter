@@ -308,7 +308,7 @@ class _SignUpPageState extends State<SignUpPage> {
         print(response.statusCode);
         print(response.body);
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Error 400")));
+            .showSnackBar(SnackBar(content: Text("el usuario ya está registrado")));
       }
     } else {
       ScaffoldMessenger.of(context)

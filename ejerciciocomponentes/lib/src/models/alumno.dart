@@ -40,7 +40,7 @@ class Alumno {
     String localidad;
     int idProvincia;
     Provincia? provincia;
-    int notaMedia;
+    double notaMedia;
     bool emailVerificado;
     String imagen;
     factory Alumno.fromJson(Map<String, dynamic> json) => Alumno(

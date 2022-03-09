@@ -105,6 +105,7 @@ rellenarListaWidgets(){
                     
                   ),
                 );
+                contador ++;
               }
               return listwid;
 }
