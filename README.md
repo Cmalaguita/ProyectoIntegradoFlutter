@@ -6,7 +6,7 @@ Proyecto para la asignatura: Programacion móvil del segundo año de DAM. Este n
 ## Sinopsis
 
 * Este proyecto es parte de un proyecto mayor, compuesto por una api proveedora de servicios, una aplicación flutter para dispositivos móviles y una aplicación web en Angular. Se trata de una aplicación que conecta a las empresas con estudiantes de ciclos formativos de todos los niveles para realizar las prácticas y/o la FP dual en estas.
-* Estado del proyecto: En proceso
+* Estado del proyecto: Finalizado
 
 ## Instalación
 El proyecto como tal no necesita instalarse, clonar el repositorio y listo.
